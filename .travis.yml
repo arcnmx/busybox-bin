@@ -1,0 +1,15 @@
+language: c
+os: linux
+sudo: false
+env:
+  global:
+    secure: tD/M9SO0SMisa/oKHn+1QtoB1yE5MnfWBecrJvc/fsZ7DZJ/hjj0wnt7OrNbi3nIwByMvFdnrcAwfv8JOTipSf25FN7REhlVRtyaA14QJdv2eo9Zu6Luno7F+JWn7/6MVXdK4HqwJJfiUg4qmwJX2G3qDZl+/J6I+GUt8ItEkPW/4mmB8l/i5+YE7CNxu8kQa17KJOwfRepN9RL586OxfgvR0bfSRns4/We239hLQpAPdOHBKy5MPf+diXnBtQ0MJzOhLz0jFrnrKwZhwrGpKH5bmaQp2HGL21ye4n5bASY93PQ05EgQACoWm6ECE2+fU1QqAJTn3+dYBMtBG+NESTHF5TaATf+ge181bZGedExtKlbyJeX0EzhF9U+sL+s3sxxUX7aHH3pkqqa1n6U+dWETJhRfvX7q6htNaRrPEL1f2o1W4hyWW6Aa5J2JMqRRf0MvwhWOZi5KbUx5qHLxFpnTZ0PkqfP2glsNqakKbMusOikKqKWZVesESgA4Z0JNeQBRV0mAccuaOlG4jjZcUhkLlvH7sA324XK1Kb+Twh6rScR3KtTNmOYEBt2DvEjsCy9ddWBIPWisjIpJVHRBvlX0wHqrPY0eZGtbR1MH3hLcvJ7MRTs0l1O5ExQtFnWwfTTKbvYigsz+L+glrDSVnJMDBYKfnI/AvXWub2tTLMI=
+script:
+- ./build.sh busybox-x86_64
+deploy:
+  provider: releases
+  file: busybox-x86_64
+  api_key: "$GH_TOKEN"
+  on:
+    tags: true
+    all_branches: true
