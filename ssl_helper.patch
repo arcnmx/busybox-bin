@@ -1,0 +1,48 @@
+diff -ruN a/ssl_helper.c b/ssl_helper.c
+--- a/ssl_helper.c	2015-07-12 22:18:47.000000000 -0400
++++ b/ssl_helper.c	2016-08-09 17:04:34.427321526 -0400
+@@ -44,12 +44,12 @@
+ /* If the algorithm type is supported, load a CA for it */
+ #ifdef USE_HEADER_KEYS
+ /* CAs */
+-# include "sampleCerts/RSA/ALL_RSA_CAS.h"
++# include "testkeys/RSA/ALL_RSA_CAS.h"
+ /* Identity Certs and Keys for use with Client Authentication */
+ # ifdef ID_RSA
+ #  define EXAMPLE_RSA_KEYS
+-#  include "sampleCerts/RSA/2048_RSA.h"
+-#  include "sampleCerts/RSA/2048_RSA_KEY.h"
++#  include "testkeys/RSA/2048_RSA.h"
++#  include "testkeys/RSA/2048_RSA_KEY.h"
+ # endif
+ #endif
+ 
+@@ -221,8 +221,8 @@
+ 	 * before it is ready.
+ 	 */
+ 
+-	matrixSslNewSessionId(&sid);
+-	rc = matrixSslNewClientSession(&ssl, keys, sid, 0, certCb, NULL, NULL, 0);
++	matrixSslNewSessionId(&sid, NULL);
++	rc = matrixSslNewClientSession(&ssl, keys, sid, NULL, 0, certCb, NULL, NULL, 0, NULL);
+ dbg("matrixSslNewClientSession:rc=%d\n", rc);
+ 	if (rc != MATRIXSSL_REQUEST_SEND)
+ 		die("matrixSslNewClientSession\n");
+@@ -346,7 +346,7 @@
+ 	char *CAstream;
+ 	sslKeys_t *keys;
+ 
+-	if (matrixSslNewKeys(&keys) < 0)
++	if (matrixSslNewKeys(&keys, NULL) < 0)
+ 		die("matrixSslNewKeys\n");
+ 
+ #ifdef USE_HEADER_KEYS
+@@ -370,7 +370,7 @@
+  #endif
+ 
+ 	if (CAstream)
+-		psFree(CAstream);
++		psFree(CAstream, NULL);
+ #endif /* USE_HEADER_KEYS */
+ 	return keys;
+ }
