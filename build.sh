@@ -35,7 +35,7 @@ curl -fsSL "https://github.com/matrixssl/matrixssl/archive/${MATRIXSSL_VERSION}.
 		${CFLAGS-} \
 		ssl_helper.c \
 		${LDFLAGS-} \
-		-lc ../matrixssl/libssl_s.a ../crypto/libcrypt_s.a ../core/libcore_s.a \
+		-static -lc ../matrixssl/libssl_s.a ../crypto/libcrypt_s.a ../core/libcore_s.a \
 		-o ssl_helper
 )
 
