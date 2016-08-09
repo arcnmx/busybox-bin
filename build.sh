@@ -29,7 +29,10 @@ curl -fsSL "https://github.com/matrixssl/matrixssl/archive/${MATRIXSSL_VERSION}.
 	patch -p1 -dssl_helper < ../ssl_helper.patch
 	make libs -j4
 	cd ssl_helper
-	gcc -Os -DPOSIX -I.. -I../testkeys -Wall ssl_helper.c \
+	${CC-gcc} -Os -DPOSIX -I.. -I../testkeys -Wall \
+		${CFLAGS-} \
+		ssl_helper.c \
+		${LDFLAGS-} \
 		-lc ../matrixssl/libssl_s.a ../crypto/libcrypt_s.a ../core/libcore_s.a \
 		-o ssl_helper
 )
