@@ -17,18 +17,23 @@ diff -ruN a/ssl_helper.c b/ssl_helper.c
  # endif
  #endif
  
-@@ -221,8 +221,8 @@
+@@ -221,8 +221,13 @@
  	 * before it is ready.
  	 */
  
 -	matrixSslNewSessionId(&sid);
 -	rc = matrixSslNewClientSession(&ssl, keys, sid, 0, certCb, NULL, NULL, 0);
++	sslSessOpts_t options;
++	memset(&options, 0, sizeof(options));
++	options.versionFlag = SSL_FLAGS_TLS_1_2;
++	options.ticketResumption = 1;
++
 +	matrixSslNewSessionId(&sid, NULL);
-+	rc = matrixSslNewClientSession(&ssl, keys, sid, NULL, 0, certCb, NULL, NULL, 0, NULL);
++	rc = matrixSslNewClientSession(&ssl, keys, sid, NULL, 0, certCb, NULL, NULL, 0, &options);
  dbg("matrixSslNewClientSession:rc=%d\n", rc);
  	if (rc != MATRIXSSL_REQUEST_SEND)
  		die("matrixSslNewClientSession\n");
-@@ -346,7 +346,7 @@
+@@ -346,7 +351,7 @@
  	char *CAstream;
  	sslKeys_t *keys;
  
