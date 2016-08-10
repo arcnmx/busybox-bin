@@ -1,0 +1,11 @@
+diff -ruN a/networking/tcpudp.c b/networking/tcpudp.c
+--- a/networking/tcpudp.c	2016-08-09 19:52:55.990031391 -0400
++++ b/networking/tcpudp.c	2016-08-09 19:53:20.317039979 -0400
+@@ -72,7 +72,6 @@
+ /* Wants <limits.h> etc, thus included after libbb.h: */
+ #ifdef __linux__
+ #include <linux/types.h> /* for __be32 etc */
+-#include <linux/netfilter_ipv4.h>
+ #endif
+ 
+ // TODO: move into this file:
